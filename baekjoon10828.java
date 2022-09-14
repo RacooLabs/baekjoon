@@ -1,57 +1,57 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class baekjoon10828 {
 
     public static void main(String args[]) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        LinkedList<Integer> stack = new LinkedList<>();
+
+        int caseNum = Integer.parseInt(br.readLine());
+
         StringBuilder sb = new StringBuilder();
+        for(int i=0;i<caseNum;i++){
 
-        int lineN = Integer.parseInt(br.readLine());
+            String[] str = br.readLine().split(" ");
+            String op;
+            int num = 0;
+            op = str[0];
+            if(str.length > 1) num = Integer.parseInt(str[1]);
 
-        Stack<Integer> s = new Stack<>();
+            if(op.equals("push")){
 
-        for(int i=0;i<lineN;i++){
-            String[] c = br.readLine().split(" ");
+                stack.add(0, num);
 
-            if(c[0].equals("push")) s.push(Integer.parseInt(c[1]));
-            else if(c[0].equals("pop")){
-                if(s.size()==0){
-                    sb.append("-1\n");
-                    System.out.print(sb);
-                    sb.setLength(0);
-                    continue;
-                }
+            }else if(op.equals("top")){
 
-                sb.append(s.pop() + "\n");
+                if(stack.size() > 0) sb.append(stack.get(0) + "\n");
+                else sb.append(-1 + "\n");
 
-            }else if(c[0].equals("size")){
-                sb.append(s.size() + "\n");
-            }else if(c[0].equals("empty")){
+            }else if(op.equals("size")){
 
-                if(s.size()==0){
-                    sb.append("1\n");
-                }else{
-                    sb.append("0\n");
-                }
+                sb.append(stack.size() + "\n");
 
-            }else if(c[0].equals("top")){
+            }else if(op.equals("pop")){
 
-                if(s.size()==0){
-                    sb.append("-1\n");
-                    System.out.print(sb);
-                    sb.setLength(0);
-                    continue;
-                }
+                if(stack.size() > 0) sb.append(stack.remove(0) + "\n");
+                else sb.append(-1 + "\n");
 
-                sb.append(s.peek()+"\n");
+
+            }else if(op.equals("empty")){
+
+                if(stack.size() == 0) sb.append(1 + "\n");
+                else sb.append(0 + "\n");
             }
 
-            System.out.print(sb);
-            sb.setLength(0);
+
 
         }
+        System.out.println(sb);
+
 
     }
 }
